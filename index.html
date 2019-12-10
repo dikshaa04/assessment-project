@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Find Your Doctor</title>
+ 
+   <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div>
+  <div id="bg" style=" background: url('giphy2.gif'); border: solid; background-position: center;background-repeat: no-repeat;background-size: 100% 100%;padding: 100px;background-attachment: fixed">
+   <a href="bmi.html"><button  style="position: absolute;top:120px; right: 70px;width:200px;color:white;height: 40px;
+   background-color: #262626;display: inline-block;font-size: 20px;border-radius: 15px;outline: none;border:none;box-shadow:0 4px #80d4ff;font-family: 'Comfortaa', cursive;cursor: pointer;" id="btn5" >Check Your BMI</button></a>
+
+  <img src="logo.png" style="top:2px;left: 16px;width:250px; /*padding:10px;*/ position:relative" />
+  <div class='quote-text'>
+                       <h1 id='quote'></h1>
+                        <p id='author'></p>
+                         </div>
+            <h1 style="padding: 90px; text-align:center;font-family: Lobster;animation-name: search; animation-duration: 3s;color:black ;animation-fill-mode: forwards; font-size: 55px;">Search Your Doctor</h1>
+        <center><input  type="text" id="search" name="value" style="margin-top: 5px; "><br>
+        <button  style="margin-top: 10px; margin-bottom: 100px;" id="btn" onclick="f1()">Search</button>
+</center>
+</div></div>
+   <div id="divbg" background="pic1.jpg">
+    <h1 id="h" style="text-align: center;font-family:'Dosis', sans-serif "></h1></center>
+      <div id="div1" style="margin-left:10px;font-weight: all;">
+            <div id="map"></div>
+    <script>
+
+function f1()
+{
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange=function() {
+var h1 = document.getElementById("h");
+h1.innerHTML = "Search Results for "+"'"+c+"'";
+    var b = document.getElementById("div1");
+    if (this.readyState == 4 && this.status == 200)
+     {
+      var respdata = JSON.parse(this.responseText);
+      console.log(respdata);
+      for(var i=0;i<respdata.data.length;i++)
+      {
+      var bio = document.createElement("h4");
+       bio.setAttribute("id","bio");
+       bio.innerHTML = "<b>About Doctor:</b>"+respdata.data[i].profile.bio+"<br>";
+       var name = document.createElement("h4");
+       name.setAttribute("id","name");
+       name.innerHTML = "NAME:"+respdata.data[i].profile.first_name+"<br>"+"Gender:"+respdata.data[i].profile.gender+"<br>"+"Qualification:"+respdata.data[i].profile.title+"<br>";
+       var specs = document.createElement("h4");
+       specs.setAttribute("id","specs");
+       specs.innerHTML = "Specialties:-"+respdata.data[i].specialties[0].category+","+respdata.data[i].specialties[0].description+","+respdata.data[i].specialties[0].name;
+       
+       // var g1 = document.createElement("p");
+       var ifr = document.createElement("iframe");
+       ifr.setAttribute("id","map");
+       var loc = respdata.data[i].practices[0].visit_address.city;
+       ifr.setAttribute("src","https://maps.google.com/maps?q="+loc+"&t=&z=13&ie=UTF8&iwloc=&output=embed")
+       var call = document.createElement("a");
+       call.setAttribute("id","bb");
+       call.setAttribute("href","https://doctorsoncallnyc.com/contact-us/");
+              var btn = document.createElement("button");
+              call.appendChild(btn);
+              btn.setAttribute("id","btn2");
+              btn.innerHTML = "Call";
+           //     var maps = document.createElement("a");
+       // maps.setAttribute("id","maps");
+       // maps.setAttribute("href","googlemaap.html");
+           //    var btnmap = document.createElement("button");
+           //    maps.appendChild(btnmap);
+           //    btnmap.setAttribute("id","btnmap");
+           //    btnmap.innerHTML = "Go to Maps";
+       var insurance = document.createElement("h4");
+       insurance.setAttribute("id","insurance");
+       insurance.innerHTML = "<b>Insurance Providers:</b>"+respdata.data[i].insurances[0].insurance_plan.name+"<br>"+respdata.data[i].insurances[1].insurance_plan.name;
+       // g1.setAttribute("id","gg2");
+       // g1.innerHTML = "<b>Details</b>"+"<br>"+a.data[i].name;
+       // var g2 = document.createElement("h1");
+       // g2.setAttribute("id","gg1");
+       // g2.innerHTML = a.data[0].profile.first_name;
+             var map = document.createElement("a");
+              map.setAttribute("id","map1");
+              map.setAttribute("href","googlemaap.html");
+              var btn1 = document.createElement("button");
+              map.appendChild(btn1);
+              btn1.setAttribute("id","btn3");
+              btn1.innerHTML = "Go to map";
+       var hr = document.createElement("hr");
+       hr.setAttribute("id","hr1");
+       b.appendChild(name);
+       b.appendChild(bio);
+                b.appendChild(specs);
+                b.appendChild(ifr);
+                b.appendChild(call);
+                 b.appendChild(map);  
+                b.appendChild(insurance);
+
+                b.appendChild(hr);
+      }
+     }
+ }
+        // var g2 = document.createElement("h1");
+        // g2.setAttribute("id","gg1");
+        // g2.innerHTML = a.data[0].profile.first_name;
+        // b.appendChild(g2);
+        var c = document.getElementById("search").value;
+        xhttp.open("GET", "https://api.betterdoctor.com/2016-03-01/doctors?query="+c+"&skip=0&limit=10&user_key=c0e556b1e7f5cff2932c8b9d3a6d2c12");
+xhttp.send();
+
+}
+</script>
+<script>
+     var url="https://api.quotable.io/random";
+ var xhr=new XMLHttpRequest()
+   xhr.open('GET',url)
+   xhr.onreadystatechange=getData
+ function getData()
+    {
+   var res_data=JSON.parse(this.responseText)
+   var a=res_data.content;
+   var b=res_data.author;
+    console.log(res_data);
+   var get_tag=document.getElementById('quote');
+     get_tag.innerHTML=a;
+     var get_tag1=document.getElementById('author');
+     get_tag1.innerHTML=b;
+     }
+     xhr.send();
+
+
+</script>
+       
+         <div class="footer">
+  
+    
+  <div id="agam">
+    Agamdeep Singh:
+    <a href="https://github.com/agamsingh0"><img src="github.png" height="20" width="20"></a>
+    <a href="https://www.linkedin.com/in/agam-singh-59817a199/"><img src="linkedin.png" height="20" width="20"></a>
+    <a href="https://instagram.com/"><img src="insta.png" height="20" width="20"></a>
+    <a href="https://facebook.com"><img src="fb.png" height="20" width="20"> 
+   </a>
+   
+    Diksha Mehta:
+    <a href="https://github.com/dikshaa04"><img src="github.png" height="20" width="20"></a>
+  </a>
+ 
+    <a href="https://www.linkedin.com/in/diksha-mehta-3aa842198/"><img src="linkedin.png" height="20" width="20"></a>
+   
+    <a href="https://instagram.com/"><img src="insta.png" height="20" width="20"></a>
+    <a href="https://facebook.com"><img src="fb.png" height="20" width="20"></a>
+ 
+
+ </div>
+ 
+
+</div>  
+
+</body>
+</html>

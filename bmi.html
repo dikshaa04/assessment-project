@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>BMI calculator</title>
+<link rel="stylesheet" type="text/css" href="bmi.css">
+</head>
+<body>
+    <div style=" background: url('giphy 3.gif'); border: solid; background-position: center;background-repeat: no-repeat;background-size: 80% 100%;padding: 100px;background-attachment: fixed">
+    <img src="logo.png" style="top:0px;left: 40px;width:250px; position: fixed ;position:absolute;" />
+   <a href="index.html"> <button  style="position: absolute;top:70px; right: 70px;width:200px;color:black;height: 40px;
+          background-color: white;display: inline-block;font-size: 20px;border-radius: 15px;outline: none;border:none;box-shadow:0 4px;font-weight: bold;font-family: 'Comfortaa';cursor: pointer;position:fixed" id="btn5" >Search Your Doctor</button></a>
+<script>
+ function bmi ()
+ {
+var height = Number(document.getElementById("height").value);
+var weight = Number(document.getElementById("weight").value);
+var output = weight / (height * height);
+document.getElementById("output").innerHTML = output;
+                if (output < 18.5)
+                    document.getElementById("comment").innerText = "Underweight";
+                else if (output >= 18.5 && output <= 25)
+                    document.getElementById("comment").innerText = "Normal";
+                else if (output >= 25 && output <= 30)
+                    document.getElementById("comment").innerText = "Obese";
+                else if (output > 30)
+                    document.getElementById("comment").innerText = "Overweight";
+}
+</script>
+<div class="bmi">
+<h1>Body Mass Index Calculator</h1>
+<p>Enter your height: <input type="text" id="height"/>
+<select type="multiple" id="heightunits">
+<option value="metres" selected="selected">metres</option>
+</select>
+</p>
+<p>Enter your weight: <input type="text" id="weight"/>
+    <select type="multiple" id="weightunits">
+        <option value="kg" selected="selected">kilograms</option>
+    </select>
+</p>
+    <input type="submit" value="computeBMI" onclick="bmi();">
+    <h1>Your BMI is: <span id="output">?</span></h1>
+       
+    <h2>This means you are: <span id="comment"> ?</span> </h2>
+</div>
+
+</body>
+</html>
